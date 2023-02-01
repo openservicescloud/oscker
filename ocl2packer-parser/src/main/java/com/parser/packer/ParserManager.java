@@ -15,7 +15,7 @@ import java.util.ServiceLoader;
  */
 public class ParserManager {
 
-    private final static Map<String,ParserInfo> registeredParsers = new HashMap<>();
+    private final static Map<String, ParserInfo> registeredParsers = new HashMap<>();
 
     static {
         loadInitialParsers();
@@ -23,39 +23,39 @@ public class ParserManager {
     }
 
     /**
-     *@Description: SPI loads all child parsers
-     *@Param: []
-     *@Return: void
-     *@DateTime: 9:37 2023/1/29
+     * @Description: SPI loads all child parsers
+     * @Param: []
+     * @Return: void
+     * @DateTime: 9:37 2023/1/29
      */
-    public static void loadInitialParsers(){
+    public static void loadInitialParsers() {
         ServiceLoader<Ocl2PackerParser> packerParsers = ServiceLoader.load(Ocl2PackerParser.class);
         Iterator<Ocl2PackerParser> driversIterator = packerParsers.iterator();
-        try{
-            while(driversIterator.hasNext()) {
+        try {
+            while (driversIterator.hasNext()) {
                 driversIterator.next();
             }
-        } catch(Throwable t) {
+        } catch (Throwable t) {
             // Do nothing
         }
 
     }
 
     /**
-     *@Description: SPI registers when loading child parsers
-     *@Param: [ocl2PackerParser]
-     *@Return: void
-     *@DateTime: 9:42 2023/1/29
+     * @Description: SPI registers when loading child parsers
+     * @Param: [ocl2PackerParser]
+     * @Return: void
+     * @DateTime: 9:42 2023/1/29
      */
     public static synchronized void registerParser(Ocl2PackerParser ocl2PackerParser) {
-        registeredParsers.put(ocl2PackerParser.cloudType(),new ParserInfo(ocl2PackerParser));
+        registeredParsers.put(ocl2PackerParser.cloudType(), new ParserInfo(ocl2PackerParser));
     }
 
     /**
-     *@Description: Get hcl file
-     *@Param: []
-     *@Return: java.lang.String
-     *@DateTime: 9:42 2023/1/29
+     * @Description: Get hcl file
+     * @Param: []
+     * @Return: java.lang.String
+     * @DateTime: 9:42 2023/1/29
      */
     public static String getHcl(Provisioner provisioner) {
         try {
@@ -67,7 +67,7 @@ public class ParserManager {
         } catch (Exception e) {
             //wrong parser, ignored it.
         }
-            return "The hcl is empty ";
+        return "The hcl is empty ";
     }
 
 }

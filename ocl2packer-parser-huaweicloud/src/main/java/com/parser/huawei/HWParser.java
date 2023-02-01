@@ -6,23 +6,19 @@ import com.parser.packer.ParserManager;
 import com.parser.packer.Provisioner;
 
 /**
- *@Description:
- *@Param:
- *@Return:
- *@DateTime: 11:26 2023/2/1
+ * @Description:
+ * @Param:
+ * @Return:
+ * @DateTime: 11:26 2023/2/1
  */
 public class HWParser implements Ocl2PackerParser {
 
     public final String type = "huaweicloud";
 
-    static
-    {
-        try
-        {
+    static {
+        try {
             ParserManager.registerParser(new HWParser());
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             throw new RuntimeException("Can't register parser!");
         }
     }
@@ -32,13 +28,13 @@ public class HWParser implements Ocl2PackerParser {
     }
 
     /**
-     *@Description:  get huaweicloud hcl file
-     *@Param: [provisioner]
-     *@Return: java.lang.String
-     *@DateTime: 11:27 2023/2/1
+     * @Description: get huaweicloud hcl file
+     * @Param: [provisioner]
+     * @Return: java.lang.String
+     * @DateTime: 11:27 2023/2/1
      */
     public String getHclImages(Provisioner provisioner) {
-        if(isTypeCompatible(provisioner)) {
+        if (isTypeCompatible(provisioner)) {
             StringBuilder hcl = new StringBuilder();
             hcl.append(String.format(""
                     + "packer {\n"
@@ -83,7 +79,8 @@ public class HWParser implements Ocl2PackerParser {
                     + "%n  ssh_ip_version     = \"4\""
                     + "%n  ssh_username       = \"root\""
                     + "%n}%n",
-                provisioner.getImage_name(),provisioner.getImage_name(),provisioner.getBase_image()));
+                provisioner.getImage_name(), provisioner.getImage_name(),
+                provisioner.getBase_image()));
 
             hcl.append(String.format("%nbuild {"
                     + "%n  sources = [\"source.huaweicloud-ecs.ecs_name\"]"
@@ -94,7 +91,7 @@ public class HWParser implements Ocl2PackerParser {
                     + "%n}%n",
                 provisioner.getInline()));
             return hcl.toString();
-        }else{
+        } else {
             return "cloudType is wrong!";
         }
     }

@@ -8,6 +8,7 @@ package com.parser.packer;
  * @Version: 1.0
  */
 public class ParserInfo {
+
     final Ocl2PackerParser ocl2PackerParser;
 
     public ParserInfo(Ocl2PackerParser ocl2PackerParser) {

@@ -23,7 +23,7 @@ public class ParserManager {
     }
 
     /**
-     *@Description: 类加载时执行
+     *@Description: SPI loads all child parsers
      *@Param: []
      *@Return: void
      *@DateTime: 9:37 2023/1/29
@@ -42,7 +42,7 @@ public class ParserManager {
     }
 
     /**
-     *@Description: 注册解析器,在plugins层类加载时执行
+     *@Description: SPI registers when loading child parsers
      *@Param: [ocl2PackerParser]
      *@Return: void
      *@DateTime: 9:42 2023/1/29
@@ -52,7 +52,7 @@ public class ParserManager {
     }
 
     /**
-     *@Description: 获取hcl文件
+     *@Description: Get hcl file
      *@Param: []
      *@Return: java.lang.String
      *@DateTime: 9:42 2023/1/29
@@ -67,7 +67,7 @@ public class ParserManager {
         } catch (Exception e) {
             //wrong parser, ignored it.
         }
-            return "111111";
+            return "The hcl is empty ";
     }
 
 }

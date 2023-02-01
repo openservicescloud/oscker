@@ -5,6 +5,12 @@ import com.parser.packer.Ocl2PackerParser;
 import com.parser.packer.ParserManager;
 import com.parser.packer.Provisioner;
 
+/**
+ *@Description:
+ *@Param:
+ *@Return:
+ *@DateTime: 11:26 2023/2/1
+ */
 public class HWParser implements Ocl2PackerParser {
 
     public final String type = "huaweicloud";
@@ -25,6 +31,12 @@ public class HWParser implements Ocl2PackerParser {
         return this.type;
     }
 
+    /**
+     *@Description:  get huaweicloud hcl file
+     *@Param: [provisioner]
+     *@Return: java.lang.String
+     *@DateTime: 11:27 2023/2/1
+     */
     public String getHclImages(Provisioner provisioner) {
         if(isTypeCompatible(provisioner)) {
             StringBuilder hcl = new StringBuilder();
@@ -49,7 +61,7 @@ public class HWParser implements Ocl2PackerParser {
                     + "%n  type = string"
                     + "%n  default = env(\"HW_ACCESS_KEY\")"
                     + "%n}"
-                    + "%nsource \"huaweicloud-ecs\" huaweicloud {"
+                    + "%nsource \"huaweicloud-ecs\" \"ecs_name\" {"
                     + "%n  region             = var.region_name"
                     + "%n  image_name         = \"%s\""
                     + "%n  access_key         = var.access_key"
@@ -58,9 +70,9 @@ public class HWParser implements Ocl2PackerParser {
                     + "%n  eip_type           = \"5_sbgp\""
                     + "%n  flavor             = \"s6.large.2\""
                     + "%n  instance_name      = \"%s\""
-                    + "%n  vpc_id             = vpc_id"
-                    + "%n  subnets            = subnets"
-                    + "%n  security_groups    = security_groups"
+                    + "%n  vpc_id             = \"vpc_id\""
+                    + "%n  subnets            = [\"subnets\"]"
+                    + "%n  security_groups    = [\"security_groups\"]"
                     + "%n  source_image_filter {"
                     + "%n    filters {"
                     + "%n      name = \"%s\""
@@ -74,17 +86,16 @@ public class HWParser implements Ocl2PackerParser {
                 provisioner.getImage_name(),provisioner.getImage_name(),provisioner.getBase_image()));
 
             hcl.append(String.format("%nbuild {"
-                    + "%n  sources = [\"source.huaweicloud-ecs.%s\"]"
+                    + "%n  sources = [\"source.huaweicloud-ecs.ecs_name\"]"
                     + "%n  provisioner \"shell\" {"
                     + "%n    pause_before = \"30s\""
                     + "%n    inline       = %s"
                     + "%n  }"
                     + "%n}%n",
-                provisioner.getImage_name(),provisioner.getInline()));
+                provisioner.getInline()));
             return hcl.toString();
         }else{
-            System.out.println("hcl创建失败");
-            return "2";
+            return "cloudType is wrong!";
         }
     }
 

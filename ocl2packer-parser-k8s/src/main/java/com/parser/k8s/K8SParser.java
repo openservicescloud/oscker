@@ -22,13 +22,13 @@ public class K8SParser implements Ocl2PackerParser {
         }
     }
 
-    public String cloudType() {
+    public String type() {
         return this.type;
     }
 
     @Override
-    public String getHclImages(Provisioner provisioner) {
-        if (isTypeCompatible(provisioner.getCloudType())) {
+    public String getHclImages(Provisioner provisioner,String cloudType) {
+        if (isTypeCompatible(cloudType)) {
             StringBuilder hcl = new StringBuilder();
             hcl.append("k8s hcl is ok!");
             return hcl.toString();

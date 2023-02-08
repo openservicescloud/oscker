@@ -15,8 +15,8 @@ import java.util.List;
  */
 public class TestMain {
 
-    public static String getHclScript(Provisioner provisioner){
-        String hcl = ParserManager.getHcl(provisioner);
+    public static String getHclScript(Provisioner provisioner, String cloudType) {
+        String hcl = ParserManager.getHcl(provisioner, cloudType);
         System.out.println(hcl);
         return hcl;
 
@@ -24,15 +24,8 @@ public class TestMain {
 
     public static void main(String[] args) {
         Provisioner provisioner = new Provisioner();
-        provisioner.setCloudType("huaweicloud");
         provisioner.setBase_image("Ubuntu 20.04 server 64bit");
-        provisioner.setVersion("latest");
         provisioner.setImage_name("image-demo-yy");
-        provisioner.setType("shell");
-
-        List envList = new ArrayList<>();
-        envList.add("WORK_HOME=/usr1/KAFKA/");
-        provisioner.setEnvironments(envList);
 
         List InlineList = new ArrayList<>();
         InlineList.add("\"echo \\\"start install docker\\\"\", \"echo \\\"run install\\\"\", "
@@ -48,7 +41,8 @@ public class TestMain {
             + "KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper-server:2181 bitnami/kafka:latest\\\" | "
             + "crontab -\"");
         provisioner.setInline(InlineList);
-        getHclScript(provisioner);
+        String cloudType = "huaweicloud";
+        getHclScript(provisioner, cloudType);
     }
 
 }

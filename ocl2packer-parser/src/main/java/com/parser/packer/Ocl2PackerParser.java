@@ -8,8 +8,8 @@ package com.parser.packer;
  */
 public interface Ocl2PackerParser {
 
-    String cloudType();
+    String type();
 
-    String getHclImages(Provisioner provisioner);
+    String getHclImages(Provisioner provisioner, String cloudType);
 
 }

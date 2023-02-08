@@ -48,7 +48,7 @@ public class ParserManager {
      * @DateTime: 9:42 2023/1/29
      */
     public static synchronized void registerParser(Ocl2PackerParser ocl2PackerParser) {
-        registeredParsers.put(ocl2PackerParser.cloudType(), new ParserInfo(ocl2PackerParser));
+        registeredParsers.put(ocl2PackerParser.type(), new ParserInfo(ocl2PackerParser));
     }
 
     /**
@@ -57,10 +57,10 @@ public class ParserManager {
      * @Return: java.lang.String
      * @DateTime: 9:42 2023/1/29
      */
-    public static String getHcl(Provisioner provisioner) {
+    public static String getHcl(Provisioner provisioner, String cloudType) {
         try {
-            ParserInfo parserInfo = registeredParsers.get(provisioner.getCloudType());
-            String hcl = parserInfo.ocl2PackerParser.getHclImages(provisioner);
+            ParserInfo parserInfo = registeredParsers.get(cloudType);
+            String hcl = parserInfo.ocl2PackerParser.getHclImages(provisioner, cloudType);
             if (!hcl.isEmpty()) {
                 return hcl;
             }

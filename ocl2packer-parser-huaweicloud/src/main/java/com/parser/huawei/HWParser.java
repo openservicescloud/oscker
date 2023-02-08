@@ -23,7 +23,7 @@ public class HWParser implements Ocl2PackerParser {
         }
     }
 
-    public String cloudType() {
+    public String type() {
         return this.type;
     }
 
@@ -33,8 +33,8 @@ public class HWParser implements Ocl2PackerParser {
      * @Return: java.lang.String
      * @DateTime: 11:27 2023/2/1
      */
-    public String getHclImages(Provisioner provisioner) {
-        if (isTypeCompatible(provisioner)) {
+    public String getHclImages(Provisioner provisioner,String cloudType) {
+        if (isTypeCompatible(cloudType)) {
             StringBuilder hcl = new StringBuilder();
             hcl.append(String.format(""
                     + "packer {\n"
@@ -96,7 +96,7 @@ public class HWParser implements Ocl2PackerParser {
         }
     }
 
-    public Boolean isTypeCompatible(Provisioner provisioner) {
-        return provisioner.getCloudType().equals(type);
+    public Boolean isTypeCompatible(String cloudType) {
+        return cloudType.equals(type);
     }
 }

@@ -2,7 +2,8 @@ package com.parser.main;
 
 import com.parser.packer.ParserManager;
 import com.parser.packer.Provisioner;
-
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -15,14 +16,16 @@ import com.parser.packer.Provisioner;
 public class Main {
 
     /**
-     *@Description: get hcl script
-     *@Param: [provisioner]
-     *@Return: java.lang.String
-     *@DateTime: 10:54 2023/2/2
+     * @Description: get hcl script
+     * @Param: [provisioner, cloudType]
+     * @Return: java.lang.String
+     * @DateTime: 15:37 2023/2/8
      */
-    public static String getHclScript(Provisioner provisioner){
-        String hcl = ParserManager.getHcl(provisioner);
+    public static String getHclScript(Provisioner provisioner, String cloudType) {
+
+        String hcl = ParserManager.getHcl(provisioner, cloudType);
         return hcl;
+
     }
 
 }

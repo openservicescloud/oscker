@@ -8,17 +8,16 @@ Oscker aim to make a generic descriptor to make images for different CSPs.
 Specify the cloud vendor and basic image by calling the getHclScript method in Main to generate the hcl script executed by packer
 
 ### input param
+#### Provisioner
+
+* **base_image**: The default CPU architecture is X86
+* **image_name**: Name of the created image
+* **inline**: The script to be executed to make the image
 
 ```json
 {
-    "cloudType": "huaweicloud",
     "base_image": "Ubuntu 20.04 server 64bit",
-    "version": "latest",
     "image_name": "my-image-demo",
-    "type": "shell",
-    "environments": [
-      "WORK_HOME=/usr1/KAFKA/"
-    ],
     "inline": [
       "echo \"start install docker\"", 
       "echo \"run install\"", "apt-get update", 
@@ -30,6 +29,18 @@ Specify the cloud vendor and basic image by calling the getHclScript method in M
     ]
 }
 ```
+    
+
+####    cloudType
+
+* **cloudType**: Specify cloud service providers to obtain their scripts
+
+* for Huaweicloud:
+  cloudType:huaweicloud
+* for k8s:
+  cloudType:k8s
+* for openstack:
+  cloudType:openstack
 
 ### output
 
@@ -97,12 +108,5 @@ build {
 }
 
 
-## Specify different cloud vendors in the input to obtain the corresponding scripts
 
-* for Huaweicloud:
-  cloudType:huaweicloud
-* for k8s:
-  cloudType:k8s
-* for openstack:
-  cloudType:openstack
     
